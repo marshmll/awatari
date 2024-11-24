@@ -79,6 +79,14 @@ private:
 
     sf::RectangleShape pixelBuffer;
 
+    const bool isPlayfieldActive(const unsigned x, const unsigned y);
+
+    const bool isPlayerActive(const unsigned x, const unsigned y, const uint8_t grp, const uint8_t resp);
+
+    const bool isMissileActive(const unsigned x, const unsigned y, const uint8_t enam, const uint8_t resm);
+
+    const bool isBallActive(const unsigned x, const unsigned y, const uint8_t enabl, const uint8_t resbl);
+
     const sf::Color readColorFromMemory(const uint16_t &addr);
 
 public:

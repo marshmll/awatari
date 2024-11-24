@@ -3,7 +3,7 @@
 
 void Awatari::initVariables()
 {
-    scale = sf::Vector2f(4.f, 3.f);
+    scale = sf::Vector2f(6.f, 3.f);
 }
 
 void Awatari::initVideoMode(const unsigned int width, const unsigned int height)
@@ -16,17 +16,23 @@ void Awatari::initTelevisionInterfaceAdapter()
     tia = new TelevisionInterfaceAdapter(memory, vm);
 
     tia->setRegister(COLUPF, 0x10);
-    tia->setRegister(CTRLPF, 0x00);
-    tia->setRegister(PF0, 0b10100000);
-    tia->setRegister(PF1, 0b01010101);
-    tia->setRegister(PF2, 0b10101010);
+    tia->setRegister(CTRLPF, 0b00001000);
+    tia->setRegister(PF0, 0b00000000);
+    tia->setRegister(PF1, 0b00000000);
+    tia->setRegister(PF2, 0b00000000);
     tia->setRegister(COLUBK, 0);
     tia->setRegister(COLUP0, 0xff);
     tia->setRegister(COLUP1, 0xff);
     tia->setRegister(GRP0, 0b11111111);
     tia->setRegister(GRP1, 0b11111111);
     tia->setRegister(RESP0, 50);
-    tia->setRegister(RESP1, 100);
+    tia->setRegister(RESP1, 90);
+    tia->setRegister(ENAM0, 0x1);
+    tia->setRegister(RESM0, 100);
+    tia->setRegister(ENAM1, 0x1);
+    tia->setRegister(RESM1, 10);
+    tia->setRegister(ENABL, 0x1);
+    tia->setRegister(RESBL, 120);
 }
 
 void Awatari::initWindow()
