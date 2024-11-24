@@ -3,17 +3,11 @@
 
 void Awatari::initVariables()
 {
-    scale = 4;
+    scale = sf::Vector2f(4.f, 3.f);
 }
 
 void Awatari::initVideoMode(const unsigned int width, const unsigned int height)
 {
-    if (width % NTSC_WIDTH != 0 || height % NTSC_HEIGHT != 0)
-    {
-        std::cerr << "Erro: Escala incompatível com as dimensões da tela." << "\n";
-        exit(EXIT_FAILURE);
-    }
-
     vm = sf::VideoMode(width, height);
 }
 
@@ -21,7 +15,7 @@ void Awatari::initTelevisionInterfaceAdapter()
 {
     tia = new TelevisionInterfaceAdapter(memory, vm);
 
-    tia->setRegister(COLUPF, 0x02);
+    tia->setRegister(COLUPF, 0x10);
     tia->setRegister(CTRLPF, 0x00);
     tia->setRegister(PF0, 0b10100000);
     tia->setRegister(PF1, 0b01010101);
@@ -44,7 +38,7 @@ void Awatari::initWindow()
 Awatari::Awatari()
 {
     initVariables();
-    initVideoMode(NTSC_WIDTH * scale, NTSC_HEIGHT * scale);
+    initVideoMode(NTSC_DISPLAY_WIDTH * scale.x, NTSC_DISPLAY_HEIGHT * scale.y);
     initTelevisionInterfaceAdapter();
     initWindow();
 }

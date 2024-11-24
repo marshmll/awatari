@@ -20,9 +20,9 @@ const sf::Color TelevisionInterfaceAdapter::readColorFromMemory(const uint16_t &
 TelevisionInterfaceAdapter::TelevisionInterfaceAdapter(std::array<uint8_t, 4096> &memory, sf::VideoMode &vm)
     : memory(memory), vm(vm)
 {
-    pixelBuffer.setSize(sf::Vector2f(vm.width / NTSC_WIDTH, vm.height / NTSC_HEIGHT));
-    // pixelBuffer.setOutlineThickness(-1.f);
-    // pixelBuffer.setOutlineColor(sf::Color(255, 255, 255, 100));
+    pixelBuffer.setSize(sf::Vector2f(
+        static_cast<float>(vm.width / NTSC_DISPLAY_WIDTH),
+        static_cast<float>(vm.height / NTSC_DISPLAY_HEIGHT)));
 }
 
 TelevisionInterfaceAdapter::~TelevisionInterfaceAdapter() {}
@@ -46,7 +46,7 @@ void TelevisionInterfaceAdapter::renderFrame(sf::RenderTarget &target)
     target.draw(background);
 
     const int BLOCK_SIZE = 4; // Cada bit controla 4 pixels
-    const int MIDPOINT = NTSC_WIDTH / 2;
+    const int MIDPOINT = NTSC_DISPLAY_WIDTH / 2;
 
     // Carregar padrões do playfield
     uint8_t playfieldPatterns[3] = {
@@ -58,14 +58,14 @@ void TelevisionInterfaceAdapter::renderFrame(sf::RenderTarget &target)
     pixelBuffer.setFillColor(readColorFromMemory(COLUPF));
 
     // Percorrer cada pixel da tela
-    for (int y = 0; y < NTSC_HEIGHT; ++y)
+    for (int y = 0; y < NTSC_DISPLAY_HEIGHT; ++y)
     {
-        for (int x = 0; x < NTSC_WIDTH; ++x)
+        for (int x = 0; x < NTSC_DISPLAY_WIDTH; ++x)
         {
             bool mirror_mode = (getRegister(CTRLPF) & 1) != 0;
-            int midpoint = NTSC_WIDTH / 2;
+            int midpoint = NTSC_DISPLAY_WIDTH / 2;
 
-            int bit_index = (mirror_mode ? (x >= midpoint ? (NTSC_WIDTH - 1 - x) : x) : x) % (NTSC_WIDTH / 2);
+            int bit_index = (mirror_mode ? (x >= midpoint ? (NTSC_DISPLAY_WIDTH - 1 - x) : x) : x) % (NTSC_DISPLAY_WIDTH / 2);
             bit_index /= BLOCK_SIZE;
 
             // Determinar o registrador e ajustar bit_index
@@ -108,7 +108,7 @@ void TelevisionInterfaceAdapter::renderFrame(sf::RenderTarget &target)
                 {
                     int px = resp + x;
                     int py = y;
-                    if (px < NTSC_WIDTH && py < NTSC_HEIGHT)
+                    if (px < NTSC_DISPLAY_WIDTH && py < NTSC_DISPLAY_HEIGHT)
                     {
                         pixelBuffer.setPosition(px * pixelBuffer.getSize().x, py * pixelBuffer.getSize().y);
                         target.draw(pixelBuffer);

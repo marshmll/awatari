@@ -11,7 +11,7 @@ private:
 
     TelevisionInterfaceAdapter *tia;
 
-    unsigned int scale;
+    sf::Vector2f scale;
     sf::VideoMode vm;
     sf::RenderWindow *window;
 
