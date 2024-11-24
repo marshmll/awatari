@@ -2,7 +2,7 @@
 
 cd src/
 
-echo "target_sources(etari PRIVATE" > CMakeLists.txt
+echo "target_sources(awatari PRIVATE" > CMakeLists.txt
 
 for fname in $(find . -maxdepth 10 -type f)
     do 

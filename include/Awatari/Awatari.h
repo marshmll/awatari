@@ -4,7 +4,7 @@
 #include "NTSC.h"
 #include "TIA.h"
 
-class Etari
+class Awatari
 {
 private:
     std::array<uint8_t, 4096> memory;
@@ -23,8 +23,8 @@ private:
     void initWindow();
 
 public:
-    Etari();
-    virtual ~Etari();
+    Awatari();
+    virtual ~Awatari();
 
     void run();
     void update();

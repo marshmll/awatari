@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "Etari.h"
+#include "Awatari.h"
 
 int main()
 {
-    Etari etari;
+    Awatari emulator;
 
-    etari.run();
+    emulator.run();
 
     return 0;
 }

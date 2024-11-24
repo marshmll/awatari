@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Awatari.h"
 
-void Etari::initVariables()
+void Awatari::initVariables()
 {
     scale = 4;
 }
 
-void Etari::initVideoMode(const unsigned int width, const unsigned int height)
+void Awatari::initVideoMode(const unsigned int width, const unsigned int height)
 {
     if (width % NTSC_WIDTH != 0 || height % NTSC_HEIGHT != 0)
     {
@@ -17,7 +17,7 @@ void Etari::initVideoMode(const unsigned int width, const unsigned int height)
     vm = sf::VideoMode(width, height);
 }
 
-void Etari::initTelevisionInterfaceAdapter()
+void Awatari::initTelevisionInterfaceAdapter()
 {
     tia = new TelevisionInterfaceAdapter(memory, vm);
 
@@ -35,13 +35,13 @@ void Etari::initTelevisionInterfaceAdapter()
     tia->setRegister(RESP1, 100);
 }
 
-void Etari::initWindow()
+void Awatari::initWindow()
 {
     window = new sf::RenderWindow(vm, "Atari", sf::Style::Close | sf::Style::Titlebar);
     window->setFramerateLimit(60);
 }
 
-Etari::Etari()
+Awatari::Awatari()
 {
     initVariables();
     initVideoMode(NTSC_WIDTH * scale, NTSC_HEIGHT * scale);
@@ -49,13 +49,13 @@ Etari::Etari()
     initWindow();
 }
 
-Etari::~Etari()
+Awatari::~Awatari()
 {
     delete tia;
     delete window;
 }
 
-void Etari::run()
+void Awatari::run()
 {
     while (window->isOpen())
     {
@@ -64,7 +64,7 @@ void Etari::run()
     }
 }
 
-void Etari::update()
+void Awatari::update()
 {
     while (window->pollEvent(event))
     {
@@ -81,7 +81,7 @@ void Etari::update()
     }
 }
 
-void Etari::render()
+void Awatari::render()
 {
     window->clear();
 
